@@ -1,0 +1,6 @@
+/tutorial1
+/tutorial2
+/data
+**/ipynb_checkpoints
+**/__pycache__
+\requirements.txt
