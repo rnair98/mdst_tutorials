@@ -21,13 +21,24 @@ This should load the data, perform preprocessing, and save the output to the dat
 import pandas as pd
 
 def remove_percents(df, col):
-    df[col].apply(lambda x: x[:-1])
+    df[col].apply(lambda x: int(x[:-1]))
 
 def fill_zero_iron(df):
     df['Iron (% DV)'] = df['Iron (% DV)'].fillna(0)
     
 def fix_caffeine(df):
-    return df
+    # replace all string 'varies' with zeroes.
+    df['Caffeine (mg)'] = df['Caffeine (mg)'].replace(['varies','Varies'],0)
+    # convert all values to a numeric type
+    df['Caffeine (mg)'] = df['Caffeine (mg)'].apply(pd.to_numeric)
+
+    #find mean of all caffeine levels and round to one decimal point.
+    df_mean = round(df['Caffeine (mg)'].mean(),1)
+
+    #replace all missing values with mean value
+    df['Caffeine (mg)'] = df['Caffeine (mg)'].replace(0,df_mean)
+
+
 
 def standardize_names(df):
     return df
