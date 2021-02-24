@@ -41,10 +41,17 @@ def fix_caffeine(df):
 
 
 def standardize_names(df):
-    return df
+    new_cols = []
+    for col in df.columns:
+        if '(' in col:
+            new_cols.append(col.split('(')[0].strip())
+    else:
+        new_cols.append(col)
+    df.columns = new_cols
 
 def fix_strings(df, col):
-    return df
+    df[col] = df[col].str.lower()
+    df[col] = df[col].str.replace('[^a-zA-Z ]',"")
 
 
 def main():
@@ -80,6 +87,7 @@ def main():
     # now that the data is all clean, save your output to the `data` folder as 'starbucks_clean.csv'
     # you will use this file in checkpoint 2
     
+    df.to_csv('../data/starbucks_clean.csv')
     
 
 if __name__ == "__main__":
