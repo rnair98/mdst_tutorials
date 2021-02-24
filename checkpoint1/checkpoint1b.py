@@ -7,22 +7,24 @@ Here you will create a script to preprocess the data given in starbucks.csv. You
 a jupyter notebook or python terminal to develop your code and test each function as you go... 
 you can import this file and its functions directly:
 
-    - jupyter notebook: include the lines `%autoreload 2` and `import preprocess`
+    - jupyter notebook: include the lines `%autoreload 2` and `import checkpoint1b.py`
                         then just call preprocess.remove_percents(df) to test
                         
-    - python terminal: run `from importlib import reload` and `import preprocess`
+    - python terminal: run `from importlib import reload` and `import checkpoint1b.py`
                        each time you modify this file, run `reload(preprocess)`
 
-Once you are finished with this program, you should run `python preprocess.py` from the terminal.
+Once you are finished with this program, you should run `python checkpoint1b.py` from the terminal.
 This should load the data, perform preprocessing, and save the output to the data folder.
 
 """
 
+import pandas as pd
+
 def remove_percents(df, col):
-    return df
+    df[col].apply(lambda x: x[:-1])
 
 def fill_zero_iron(df):
-    return df
+    df['Iron (% DV)'] = df['Iron (% DV)'].fillna(0)
     
 def fix_caffeine(df):
     return df
